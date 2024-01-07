@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { globalStyles } from '../styles/globalStyles';
+import { globalStyles } from '../styles/styles';
 import {
   Button,
   Keyboard,
