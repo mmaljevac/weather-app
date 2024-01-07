@@ -13,6 +13,7 @@ import {
 export default function Home() {
   const [search, setSearch] = useState('');
   const [weatherData, setWeatherData] = useState(null);
+  const [savedLocations, setSavedLocations] = useState([]);
 
   const handleSearch = () => {
     fetch(
@@ -32,6 +33,17 @@ export default function Home() {
       .catch((error) => {
         Alert.alert('Unknown city!');
       });
+  };
+
+  const handleSave = () => {
+    const newLocation = { name: weatherData.location.name, country: weatherData.location.country };
+
+    if (!savedLocations.some(loc => loc.name === newLocation.name && loc.country === newLocation.country)) {
+      setSavedLocations([...savedLocations, newLocation]);
+    } else {
+      Alert.alert('City already saved!');
+    }
+    console.log(savedLocations);
   };
 
   return (
@@ -54,7 +66,7 @@ export default function Home() {
             <Text>Temperature: {weatherData.current.temp_c}°C</Text>
             <Text>Humidity: {weatherData.current.humidity}%</Text>
             <Text>Wind: {weatherData.current.wind_kph}km/h</Text>
-            <Button title='Save' />
+            <Button title="Save" onPress={handleSave} />
           </>
         )}
       </View>
