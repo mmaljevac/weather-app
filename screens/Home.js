@@ -11,8 +11,11 @@ import {
   View,
 } from 'react-native';
 import { useLocationsContext } from '../contexts/AppContext';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Home() {
+  const navigation = useNavigation();
+
   const [search, setSearch] = useState('');
   const [weatherData, setWeatherData] = useState(null);
   const { savedLocations, setSavedLocations } = useLocationsContext();
@@ -51,10 +54,10 @@ export default function Home() {
         a.name.localeCompare(b.name)
       );
       setSavedLocations(sortedLocations);
+      navigation.navigate('Locations');
     } else {
       Alert.alert('City already saved!');
     }
-    console.log(savedLocations);
   };
 
   return (
