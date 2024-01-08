@@ -3,17 +3,19 @@ import { globalStyles } from '../styles/styles';
 import {
   Alert,
   Button,
+  FlatList,
   Keyboard,
   Text,
   TextInput,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { useLocationsContext } from '../contexts/AppContext';
 
 export default function Home() {
   const [search, setSearch] = useState('');
   const [weatherData, setWeatherData] = useState(null);
-  const [savedLocations, setSavedLocations] = useState([]);
+  const { savedLocations, setSavedLocations } = useLocationsContext();
 
   const handleSearch = () => {
     fetch(
@@ -27,19 +29,28 @@ export default function Home() {
       })
       .then((data) => {
         setWeatherData(data);
-        console.log(weatherData);
-        console.log(data);
       })
-      .catch((error) => {
+      .catch(() => {
         Alert.alert('Unknown city!');
       });
   };
 
   const handleSave = () => {
-    const newLocation = { name: weatherData.location.name, country: weatherData.location.country };
+    const newLocation = {
+      name: weatherData.location.name,
+      country: weatherData.location.country,
+    };
 
-    if (!savedLocations.some(loc => loc.name === newLocation.name && loc.country === newLocation.country)) {
-      setSavedLocations([...savedLocations, newLocation]);
+    if (
+      !savedLocations.some(
+        (loc) =>
+          loc.name === newLocation.name && loc.country === newLocation.country
+      )
+    ) {
+      const sortedLocations = [...savedLocations, newLocation].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+      setSavedLocations(sortedLocations);
     } else {
       Alert.alert('City already saved!');
     }
@@ -59,14 +70,22 @@ export default function Home() {
 
         {weatherData && (
           <>
-            <Text>
+            <Text style={globalStyles.text}>
               Current weather in {weatherData.location.name},{' '}
               {weatherData.location.country}:
             </Text>
-            <Text>Temperature: {weatherData.current.temp_c}°C</Text>
-            <Text>Humidity: {weatherData.current.humidity}%</Text>
-            <Text>Wind: {weatherData.current.wind_kph}km/h</Text>
-            <Button title="Save" onPress={handleSave} />
+            <Text style={globalStyles.text}>
+              Temperature: {weatherData.current.temp_c}°C
+            </Text>
+            <Text style={globalStyles.text}>
+              Humidity: {weatherData.current.humidity}%
+            </Text>
+            <Text style={globalStyles.text}>
+              Wind: {weatherData.current.wind_kph}km/h
+            </Text>
+            <View style={globalStyles.button}>
+              <Button title="Save" onPress={handleSave} />
+            </View>
           </>
         )}
       </View>
