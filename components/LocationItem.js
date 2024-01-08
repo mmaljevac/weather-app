@@ -6,9 +6,16 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useLocationsContext } from '../contexts/AppContext';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LocationItem({ item }) {
-  const { setSavedLocations } = useLocationsContext();
+  const { setSavedLocations, setActiveLocation } = useLocationsContext();
+  const navigation = useNavigation();
+
+  const selectLocation = () => {
+    setActiveLocation(`${item.name}, ${item.country}`);
+    navigation.navigate('Home');
+  }
 
   const handleDelete = (item) => {
     setSavedLocations((prevLocs) => {
@@ -17,7 +24,7 @@ export default function LocationItem({ item }) {
   };
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={selectLocation}>
       <Text style={globalStyles.text}>
         {item.name}, {item.country}
       </Text>

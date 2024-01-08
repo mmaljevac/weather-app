@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { globalStyles } from '../styles/styles';
 import {
   Alert,
   Button,
-  FlatList,
+  Image,
   Keyboard,
   Text,
   TextInput,
@@ -16,13 +16,18 @@ import { useNavigation } from '@react-navigation/native';
 export default function Home() {
   const navigation = useNavigation();
 
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState('Zagreb');
   const [weatherData, setWeatherData] = useState(null);
-  const { savedLocations, setSavedLocations } = useLocationsContext();
+  const { savedLocations, setSavedLocations, activeLocation } =
+    useLocationsContext();
 
-  const handleSearch = () => {
+  useEffect(() => {
+    handleSearch(activeLocation);
+  }, [activeLocation]);
+
+  const handleSearch = (term) => {
     fetch(
-      `https://api.weatherapi.com/v1/current.json?key=9b6b424f000143109c4120743231105&q=${search}&aqi=no`
+      `https://api.weatherapi.com/v1/current.json?key=9b6b424f000143109c4120743231105&q=${term}&aqi=no`
     )
       .then((response) => {
         if (!response.ok) {
@@ -67,7 +72,7 @@ export default function Home() {
           style={globalStyles.input}
           placeholder="Input city"
           onChangeText={(e) => setSearch(e)}
-          onSubmitEditing={handleSearch}
+          onSubmitEditing={() => handleSearch(search)}
           returnKeyType="search"
         ></TextInput>
 
@@ -76,6 +81,9 @@ export default function Home() {
             <Text style={globalStyles.text}>
               Current weather in {weatherData.location.name},{' '}
               {weatherData.location.country}:
+            </Text>
+            <Text style={globalStyles.text}>
+              Weather: {weatherData.current.condition.text}
             </Text>
             <Text style={globalStyles.text}>
               Temperature: {weatherData.current.temp_c}°C

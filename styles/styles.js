@@ -22,7 +22,7 @@ export const globalStyles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    paddingTop: 30,
+    padding: 30,
   },
   button: {
     padding: 20,
