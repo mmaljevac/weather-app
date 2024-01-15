@@ -3,7 +3,9 @@ import { globalStyles } from '../styles/styles';
 import {
   Alert,
   Button,
+  FlatList,
   Keyboard,
+  ScrollView,
   Text,
   TextInput,
   TouchableWithoutFeedback,
@@ -11,6 +13,7 @@ import {
 } from 'react-native';
 import { useLocationsContext } from '../contexts/AppContext';
 import { useNavigation } from '@react-navigation/native';
+import ForecastItem from '../components/ForecastItem';
 
 export default function Home() {
   const navigation = useNavigation();
@@ -82,40 +85,51 @@ export default function Home() {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={globalStyles.container}>
-        <TextInput
-          style={globalStyles.input}
-          placeholder="Input city"
-          onChangeText={(e) => setSearch(e)}
-          onSubmitEditing={() => handleSearch(search)}
-          returnKeyType="search"
-        ></TextInput>
+    <View style={globalStyles.container}>
+      <TextInput
+        style={globalStyles.input}
+        placeholder="Input city"
+        onChangeText={(e) => setSearch(e)}
+        onSubmitEditing={() => handleSearch(search)}
+        returnKeyType="search"
+      ></TextInput>
 
-        {currentWeatherData && (
-          <>
-            <Text style={globalStyles.text}>
-              Current weather in {currentWeatherData.location.name},{' '}
-              {currentWeatherData.location.country}:
-            </Text>
-            <Text style={globalStyles.text}>
-              Weather: {currentWeatherData.current.condition.text}
-            </Text>
-            <Text style={globalStyles.text}>
-              Temperature: {currentWeatherData.current.temp_c}°C
-            </Text>
-            <Text style={globalStyles.text}>
-              Humidity: {currentWeatherData.current.humidity}%
-            </Text>
-            <Text style={globalStyles.text}>
-              Wind: {currentWeatherData.current.wind_kph}km/h
-            </Text>
-            <View style={globalStyles.button}>
-              <Button title="Save" onPress={handleSave} />
+      {currentWeatherData && (
+        <>
+          <Text style={globalStyles.text}>
+            Current weather in {currentWeatherData.location.name},{' '}
+            {currentWeatherData.location.country}:
+          </Text>
+          <Text style={globalStyles.text}>
+            Weather: {currentWeatherData.current.condition.text}
+          </Text>
+          <Text style={globalStyles.text}>
+            Temperature: {currentWeatherData.current.temp_c}°C
+          </Text>
+          <Text style={globalStyles.text}>
+            Humidity: {currentWeatherData.current.humidity}%
+          </Text>
+          <Text style={globalStyles.text}>
+            Wind: {currentWeatherData.current.wind_kph}km/h
+          </Text>
+          <View style={globalStyles.button}>
+            <Button title="Save" onPress={handleSave} />
+          </View>
+        </>
+      )}
+
+      {forecastData && (
+        <>
+          <Text>Forecast by hour</Text>
+          <ScrollView horizontal={true}>
+            <View style={{ flexDirection: 'row' }}>
+              {forecastData.forecast.forecastday[0].hour.map((item, index) => (
+                <ForecastItem key={index} item={item} />
+              ))}
             </View>
-          </>
-        )}
-      </View>
-    </TouchableWithoutFeedback>
+          </ScrollView>
+        </>
+      )}
+    </View>
   );
 }

@@ -21,7 +21,7 @@ export const globalStyles = StyleSheet.create({
     fontSize: 40,
   },
   text: {
-    fontSize: 20,
+    fontSize: 15,
     padding: 30,
   },
   button: {
@@ -29,5 +29,15 @@ export const globalStyles = StyleSheet.create({
   },
   list: {
     flex: 1,
+  },
+  forecastItem: {
+    alignItems: 'center',
+    textAlign: 'center',
+    backgroundColor: 'lightblue',
+    borderRadius: 10,
+    padding: 5,
+    margin: 3,
+    width: 70,
+    height: 100
   },
 });

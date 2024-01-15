@@ -14,7 +14,7 @@ export default function LocationItem({ item }) {
 
   const selectLocation = () => {
     setActiveLocation(`${item.name}, ${item.country}`);
-    navigation.navigate('Home');
+    navigation.goBack();
   }
 
   const handleDelete = (item) => {
