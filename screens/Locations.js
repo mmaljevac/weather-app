@@ -3,6 +3,7 @@ import { globalStyles } from '../styles/styles';
 import {
   FlatList,
   Keyboard,
+  StyleSheet,
   Text,
   TouchableWithoutFeedback,
   View,
@@ -15,7 +16,7 @@ export default function Locations() {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={globalStyles.locationsContainer}>
+      <View style={styles.container}>
         <Text style={globalStyles.title}>Saved locations:</Text>
         <FlatList
           keyExtractor={(item) => `${item.name}, ${item.country}`}
@@ -28,3 +29,11 @@ export default function Locations() {
     </TouchableWithoutFeedback>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    margin: 20,
+    marginTop: 70,
+  },
+});

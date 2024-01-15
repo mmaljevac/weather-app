@@ -1,19 +1,20 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { globalStyles } from '../styles/styles';
 import {
   Alert,
   Button,
-  FlatList,
-  Keyboard,
+  Dimensions,
+  Image,
   ScrollView,
+  StyleSheet,
   Text,
   TextInput,
-  TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { useLocationsContext } from '../contexts/AppContext';
-import { useNavigation } from '@react-navigation/native';
 import ForecastItem from '../components/ForecastItem';
+import { useLocationsContext } from '../contexts/AppContext';
+import { globalStyles } from '../styles/styles';
+import { apiKey, weatherImages } from '../constants/constants';
 
 export default function Home() {
   const navigation = useNavigation();
@@ -30,7 +31,7 @@ export default function Home() {
 
   const handleSearch = (term) => {
     fetch(
-      `https://api.weatherapi.com/v1/current.json?key=9b6b424f000143109c4120743231105&q=${term}&aqi=no`
+      `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${term}&aqi=no`
     )
       .then((response) => {
         if (!response.ok) {
@@ -46,7 +47,7 @@ export default function Home() {
       });
 
     fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=9b6b424f000143109c4120743231105&q=${term}&days=1&aqi=no&alerts=no`
+      `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${term}&days=1&aqi=no&alerts=no`
     )
       .then((response) => {
         if (!response.ok) {
@@ -85,9 +86,9 @@ export default function Home() {
   };
 
   return (
-    <View style={globalStyles.container}>
+    <View style={styles.container}>
       <TextInput
-        style={globalStyles.input}
+        style={styles.input}
         placeholder="Input city"
         onChangeText={(e) => setSearch(e)}
         onSubmitEditing={() => handleSearch(search)}
@@ -96,23 +97,27 @@ export default function Home() {
 
       {currentWeatherData && (
         <>
-          <Text style={globalStyles.text}>
+          <Text style={styles.text}>
             Current weather in {currentWeatherData.location.name},{' '}
             {currentWeatherData.location.country}:
           </Text>
-          <Text style={globalStyles.text}>
+          <Image
+            source={weatherImages[currentWeatherData.current.condition.text]}
+            style={styles.imgCurrent}
+          />
+          <Text style={styles.text}>
             Weather: {currentWeatherData.current.condition.text}
           </Text>
-          <Text style={globalStyles.text}>
+          <Text style={styles.text}>
             Temperature: {currentWeatherData.current.temp_c}°C
           </Text>
-          <Text style={globalStyles.text}>
+          <Text style={styles.text}>
             Humidity: {currentWeatherData.current.humidity}%
           </Text>
-          <Text style={globalStyles.text}>
+          <Text style={styles.text}>
             Wind: {currentWeatherData.current.wind_kph}km/h
           </Text>
-          <View style={globalStyles.button}>
+          <View style={styles.button}>
             <Button title="Save" onPress={handleSave} />
           </View>
         </>
@@ -121,7 +126,10 @@ export default function Home() {
       {forecastData && (
         <>
           <Text>Forecast by hour</Text>
-          <ScrollView horizontal={true}>
+          <ScrollView
+            horizontal={true}
+            contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+          >
             <View style={{ flexDirection: 'row' }}>
               {forecastData.forecast.forecastday[0].hour.map((item, index) => (
                 <ForecastItem key={index} item={item} />
@@ -133,3 +141,24 @@ export default function Home() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 100,
+  },
+  text: {
+    fontSize: 15,
+  },
+  input: {
+    padding: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 15,
+  },
+  imgCurrent: {
+    width: 200,
+    height: 200,
+  },
+});
