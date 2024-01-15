@@ -20,15 +20,18 @@ const styles = StyleSheet.create({
   forecastItem: {
     alignItems: 'center',
     textAlign: 'center',
-    backgroundColor: 'lightblue',
-    borderRadius: 10,
+    backgroundColor: 'white',
+    borderRadius: 12,
     padding: 5,
-    margin: 3,
+    margin: 4,
     width: 70,
-    height: 100,
+    height: 103,
+    marginBottom: 15,
   },
   imgForecast: {
     width: 40,
     height: 40,
+    padding: 25,
+    marginVertical: 5,
   },
 });

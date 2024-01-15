@@ -5,6 +5,7 @@ import {
   Button,
   Dimensions,
   Image,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -59,7 +60,7 @@ export default function Home() {
         setForecastData(data);
       })
       .catch(() => {
-        Alert.alert('Unknown city!');
+        Alert.alert('Unknown location!');
       });
   };
 
@@ -81,64 +82,70 @@ export default function Home() {
       setSavedLocations(sortedLocations);
       navigation.navigate('Locations');
     } else {
-      Alert.alert('City already saved!');
+      Alert.alert('Location already saved!');
     }
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Input city"
-        onChangeText={(e) => setSearch(e)}
-        onSubmitEditing={() => handleSearch(search)}
-        returnKeyType="search"
-      ></TextInput>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.container}>
+        <TextInput
+          style={styles.search}
+          placeholder="Search for a location"
+          onChangeText={(e) => setSearch(e)}
+          onSubmitEditing={() => handleSearch(search)}
+          returnKeyType="search"
+        ></TextInput>
 
-      {currentWeatherData && (
-        <>
-          <Text style={styles.text}>
-            Current weather in {currentWeatherData.location.name},{' '}
-            {currentWeatherData.location.country}:
-          </Text>
-          <Image
-            source={weatherImages[currentWeatherData.current.condition.text]}
-            style={styles.imgCurrent}
-          />
-          <Text style={styles.text}>
-            Weather: {currentWeatherData.current.condition.text}
-          </Text>
-          <Text style={styles.text}>
-            Temperature: {currentWeatherData.current.temp_c}°C
-          </Text>
-          <Text style={styles.text}>
-            Humidity: {currentWeatherData.current.humidity}%
-          </Text>
-          <Text style={styles.text}>
-            Wind: {currentWeatherData.current.wind_kph}km/h
-          </Text>
-          <View style={styles.button}>
-            <Button title="Save" onPress={handleSave} />
-          </View>
-        </>
-      )}
+        {currentWeatherData && (
+          <>
+            <Text style={{ fontSize: 30, padding: 20 }}>
+              <Text style={{ fontWeight: 'bold' }}>
+                {currentWeatherData.location.name},{' '}
+              </Text>
+              {currentWeatherData.location.country}
+            </Text>
+            <Image
+              source={weatherImages[currentWeatherData.current.condition.text]}
+              style={styles.imgCurrent}
+            />
+            <Text style={{ fontSize: 30, paddingTop: 20, paddingBottom: 10 }}>
+              {currentWeatherData.current.temp_c}°C
+            </Text>
+            <Text style={{ fontSize: 25, marginBottom: 10 }}>
+              {currentWeatherData.current.condition.text}
+            </Text>
+            <Text style={styles.text}>
+              <Text style={{ fontWeight: 'bold' }}>Humidity:</Text>{' '}
+              {currentWeatherData.current.humidity}% •{' '}
+              <Text style={{ fontWeight: 'bold' }}>Wind:</Text>{' '}
+              {currentWeatherData.current.wind_kph}km/h
+            </Text>
+          </>
+        )}
 
-      {forecastData && (
-        <>
-          <Text>Forecast by hour</Text>
-          <ScrollView
-            horizontal={true}
-            contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
-          >
-            <View style={{ flexDirection: 'row' }}>
-              {forecastData.forecast.forecastday[0].hour.map((item, index) => (
-                <ForecastItem key={index} item={item} />
-              ))}
-            </View>
-          </ScrollView>
-        </>
-      )}
-    </View>
+        {forecastData && (
+          <>
+            <Text style={{ fontSize: 20, padding: 7, marginTop: 10 }}>Forecast by hour</Text>
+            <ScrollView
+              horizontal={true}
+              contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+            >
+              <View style={{ flexDirection: 'row' }}>
+                {forecastData.forecast.forecastday[0].hour.map(
+                  (item, index) => (
+                    <ForecastItem key={index} item={item} />
+                  )
+                )}
+              </View>
+            </ScrollView>
+          </>
+        )}
+        <View style={globalStyles.button}>
+          <Button title="Save location 📍" onPress={handleSave} />
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -146,12 +153,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    marginTop: 100,
+    paddingTop: 75,
+    // backgroundColor: '#242424'
   },
   text: {
-    fontSize: 15,
+    fontSize: 20,
+    padding: 7,
   },
-  input: {
+  search: {
     padding: 10,
     borderWidth: 1,
     borderColor: 'gray',
