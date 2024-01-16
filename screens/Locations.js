@@ -17,7 +17,7 @@ export default function Locations() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-        <Text style={globalStyles.title}>Saved locations:</Text>
+        <Text style={styles.title}>Saved locations</Text>
         <FlatList
           keyExtractor={(item) => `${item.name}, ${item.country}`}
           data={savedLocations}
@@ -35,5 +35,9 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 20,
     marginTop: 70,
+  },
+  title : {
+    fontSize: 30,
+    marginBottom: 20,
   },
 });

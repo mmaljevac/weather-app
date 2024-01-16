@@ -1,11 +1,6 @@
 import React from 'react';
 import { globalStyles } from '../styles/styles';
-import {
-  Button,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useLocationsContext } from '../contexts/AppContext';
 import { useNavigation } from '@react-navigation/native';
 
@@ -16,7 +11,7 @@ export default function LocationItem({ item }) {
   const selectLocation = () => {
     setActiveLocation(`${item.name}, ${item.country}`);
     navigation.goBack();
-  }
+  };
 
   const handleDelete = (item) => {
     setSavedLocations((prevLocs) => {
@@ -25,18 +20,25 @@ export default function LocationItem({ item }) {
   };
 
   return (
-    <TouchableOpacity onPress={selectLocation}>
+    <TouchableOpacity onPress={selectLocation} style={styles.container}>
       <Text style={styles.text}>
         {item.name}, {item.country}
       </Text>
-      <Button title="Delete" onPress={() => handleDelete(item)} />
+      <Text style={styles.text}>
+        {item.temp}°C, {item.condition}
+      </Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 12,
+  },
   text: {
     fontSize: 15,
-    padding: 30,
+    padding: 5,
   },
 });
