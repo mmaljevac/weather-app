@@ -87,7 +87,7 @@ export default function Home() {
   };
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor: '#f0f2f5'}}>
       <View style={styles.container}>
         <TextInput
           style={styles.search}
@@ -109,7 +109,7 @@ export default function Home() {
               source={currentWeatherData.current.is_day ? weatherImages[currentWeatherData.current.condition.text] : weatherImagesNight[currentWeatherData.current.condition.text]}
               style={styles.imgCurrent}
             />
-            <Text style={{ fontSize: 30, paddingTop: 20, paddingBottom: 10 }}>
+            <Text style={{ fontSize: 35, paddingTop: 15, paddingBottom: 10 }}>
               {currentWeatherData.current.temp_c}°C
             </Text>
             <Text style={{ fontSize: 25, marginBottom: 10 }}>

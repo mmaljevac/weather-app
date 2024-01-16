@@ -5,6 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Locations from './screens/Locations';
 import Home from './screens/Home';
 import { LocationsProvider } from './contexts/AppContext';
+import { StatusBar } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,6 +13,10 @@ export default function App() {
   return (
     <LocationsProvider>
       <NavigationContainer>
+      <StatusBar
+          barStyle="dark-content"
+          backgroundColor="#ffffff"
+        />
         <Tab.Navigator
           initialRouteName="Home"
           screenOptions={{

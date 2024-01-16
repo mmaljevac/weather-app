@@ -1,5 +1,4 @@
 import React from 'react';
-import { globalStyles } from '../styles/styles';
 import {
   FlatList,
   Keyboard,
@@ -8,8 +7,8 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { useLocationsContext } from '../contexts/AppContext';
 import LocationItem from '../components/LocationItem';
+import { useLocationsContext } from '../contexts/AppContext';
 
 export default function Locations() {
   const { savedLocations } = useLocationsContext();

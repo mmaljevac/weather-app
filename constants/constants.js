@@ -25,6 +25,7 @@ export const weatherImages = {
   'Patchy light snow': require('../assets/images/snow.png'),
   'Mist': require('../assets/images/fog.png'),
   'Fog': require('../assets/images/fog.png'),
+  'Freezing fog': require('../assets/images/fog.png'),
   'other': require('../assets/images/fog.png')
 }
 
@@ -53,5 +54,6 @@ export const weatherImagesNight = {
   'Patchy light snow': require('../assets/images/snow.png'),
   'Mist': require('../assets/images/fog.png'),
   'Fog': require('../assets/images/fog.png'),
+  'Freezing fog': require('../assets/images/fog.png'),
   'other': require('../assets/images/fog.png')
 }
