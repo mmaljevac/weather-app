@@ -3,9 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Alert,
   Button,
-  Dimensions,
   Image,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,9 +11,8 @@ import {
   View,
 } from 'react-native';
 import ForecastItem from '../components/ForecastItem';
+import { apiKey, weatherImages, weatherImagesNight } from '../constants/constants';
 import { useLocationsContext } from '../contexts/AppContext';
-import { globalStyles } from '../styles/styles';
-import { apiKey, weatherImages } from '../constants/constants';
 
 export default function Home() {
   const navigation = useNavigation();
@@ -106,7 +103,7 @@ export default function Home() {
               {currentWeatherData.location.country}
             </Text>
             <Image
-              source={weatherImages[currentWeatherData.current.condition.text]}
+              source={currentWeatherData.current.is_day ? weatherImages[currentWeatherData.current.condition.text] : weatherImagesNight[currentWeatherData.current.condition.text]}
               style={styles.imgCurrent}
             />
             <Text style={{ fontSize: 30, paddingTop: 20, paddingBottom: 10 }}>
@@ -124,9 +121,12 @@ export default function Home() {
           </>
         )}
 
-        {forecastData && (
+        {forecastData && currentWeatherData && (
           <>
-            <Text style={{ fontSize: 20, padding: 7, marginTop: 10 }}>Forecast by hour</Text>
+            <Text style={{ fontSize: 18, padding: 7, marginTop: 10 }}>
+              Forecast by hour (currently{' '}
+              {currentWeatherData.location.localtime.substring(11)})
+            </Text>
             <ScrollView
               horizontal={true}
               contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
@@ -141,8 +141,8 @@ export default function Home() {
             </ScrollView>
           </>
         )}
-        <View style={globalStyles.button}>
-          <Button title="Save location 📍" onPress={handleSave} />
+        <View style={styles.button}>
+          <Button title="Save location📍" onPress={handleSave} />
         </View>
       </View>
     </ScrollView>
@@ -164,10 +164,16 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderColor: 'gray',
-    borderRadius: 15,
+    borderRadius: 12,
   },
   imgCurrent: {
     width: 200,
     height: 200,
+  },
+  button: {
+    backgroundColor: 'white', // Dodajte željene stilove za iOS
+    borderRadius: 12,
+    padding: 5,
+    margin: 5,
   },
 });

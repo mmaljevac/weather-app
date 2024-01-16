@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { weatherImages } from '../constants/constants';
+import { weatherImages, weatherImagesNight } from '../constants/constants';
 
 export default function ForecastItem({ item }) {
   return (
@@ -8,10 +8,11 @@ export default function ForecastItem({ item }) {
       <Text>{item.time.substring(11, 13)}</Text>
       {/* <Text>{item.condition.text}</Text> */}
       <Image
-        source={weatherImages[item.condition.text]}
+        source={item.is_day ? weatherImages[item.condition.text] : weatherImagesNight[item.condition.text]}
         style={styles.imgForecast}
       />
       <Text>{item.temp_c}°C</Text>
+      {/* <Text>{item.is_day}</Text> */}
     </View>
   );
 }
