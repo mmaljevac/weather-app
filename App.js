@@ -4,24 +4,22 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Locations from './screens/Locations';
 import Home from './screens/Home';
-import { LocationsProvider } from './contexts/AppContext';
+import { ContextProvider } from './contexts/AppContext';
 import { StatusBar } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <LocationsProvider>
+    <ContextProvider>
       <NavigationContainer>
-      <StatusBar
-          barStyle="dark-content"
-          backgroundColor="#ffffff"
-        />
+        <StatusBar backgroundColor="#ffffff" />
         <Tab.Navigator
           initialRouteName="Home"
           screenOptions={{
             tabBarActiveTintColor: '#e91e63',
             headerShown: false,
+            tabBarStyle: { backgroundColor: 'rgba(255, 255, 255, 0)' },
           }}
         >
           <Tab.Screen
@@ -54,6 +52,6 @@ export default function App() {
           />
         </Tab.Navigator>
       </NavigationContainer>
-    </LocationsProvider>
+    </ContextProvider>
   );
 }

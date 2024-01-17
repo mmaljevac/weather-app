@@ -1,25 +1,28 @@
 import React, { createContext, useContext, useState } from 'react';
 
-const LocationsContext = createContext();
+const AppContext = createContext();
 
-export const LocationsProvider = ({ children }) => {
+export const ContextProvider = ({ children }) => {
   const [savedLocations, setSavedLocations] = useState([]);
   const [activeLocation, setActiveLocation] = useState('Zagreb');
+  const [isDay, setIsDay] = useState(true);
 
   return (
-    <LocationsContext.Provider
+    <AppContext.Provider
       value={{
         savedLocations: savedLocations,
         setSavedLocations: setSavedLocations,
         activeLocation: activeLocation,
         setActiveLocation: setActiveLocation,
+        isDay: isDay,
+        setIsDay: setIsDay,
       }}
     >
       {children}
-    </LocationsContext.Provider>
+    </AppContext.Provider>
   );
 };
 
-export const useLocationsContext = () => {
-  return useContext(LocationsContext);
+export const useAppContext = () => {
+  return useContext(AppContext);
 };

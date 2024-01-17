@@ -8,10 +8,10 @@ import {
   View,
 } from 'react-native';
 import LocationItem from '../components/LocationItem';
-import { useLocationsContext } from '../contexts/AppContext';
+import { useAppContext } from '../contexts/AppContext';
 
 export default function Locations() {
-  const { savedLocations } = useLocationsContext();
+  const { savedLocations } = useAppContext();
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -20,9 +20,7 @@ export default function Locations() {
         <FlatList
           keyExtractor={(item) => `${item.name}, ${item.country}`}
           data={savedLocations}
-          renderItem={({ item }) => (
-            <LocationItem item={item} />
-          )}
+          renderItem={({ item }) => <LocationItem item={item} />}
         />
       </View>
     </TouchableWithoutFeedback>
@@ -35,7 +33,7 @@ const styles = StyleSheet.create({
     margin: 20,
     marginTop: 70,
   },
-  title : {
+  title: {
     fontSize: 30,
     marginBottom: 20,
   },

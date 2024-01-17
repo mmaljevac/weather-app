@@ -1,5 +1,8 @@
 export const apiKey = '9b6b424f000143109c4120743231105';
 
+export const dayMode = '64, 155, 230';
+export const nightMode = '8, 36, 59';
+
 export const weatherImages = {
   'Sunny': require('../assets/images/sunny.png'),
   'Clear': require('../assets/images/sunny.png'),

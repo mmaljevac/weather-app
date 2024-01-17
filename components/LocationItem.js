@@ -1,11 +1,16 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useLocationsContext } from '../contexts/AppContext';
-import { weatherImages, weatherImagesNight } from '../constants/constants';
+import { useAppContext } from '../contexts/AppContext';
+import {
+  dayMode,
+  nightMode,
+  weatherImages,
+  weatherImagesNight,
+} from '../constants/constants';
 
 export default function LocationItem({ item }) {
-  const { setSavedLocations, setActiveLocation } = useLocationsContext();
+  const { setSavedLocations, setActiveLocation } = useAppContext();
   const navigation = useNavigation();
 
   const selectLocation = () => {
@@ -20,13 +25,19 @@ export default function LocationItem({ item }) {
   };
 
   return (
-    <TouchableOpacity onPress={selectLocation} style={styles.container}>
+    <TouchableOpacity
+      onPress={selectLocation}
+      style={[
+        styles.container,
+        { backgroundColor: `rgba(${item.isDay ? dayMode : nightMode}, 1)` },
+      ]}
+    >
       <View>
         <Text
           style={{
-            fontSize: 15,
+            fontSize: 25,
             padding: 5,
-            fontWeight: 'bold',
+            color: 'white',
           }}
         >
           {item.name}
@@ -51,7 +62,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'white',
+    alignItems: 'center',
     padding: 15,
     marginVertical: 7,
     borderRadius: 12,
@@ -59,6 +70,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 15,
     padding: 5,
+    color: 'white',
   },
   img: {
     width: 55,
