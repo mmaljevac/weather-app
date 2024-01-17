@@ -69,9 +69,6 @@ export default function Home() {
     const newLocation = {
       name: currentWeatherData.location.name,
       country: currentWeatherData.location.country,
-      temp: currentWeatherData.current.temp_c,
-      condition: currentWeatherData.current.condition.text,
-      isDay: currentWeatherData.current.is_day,
     };
 
     if (

@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useAppContext } from '../contexts/AppContext';
 import {
+  apiKey,
   dayMode,
   nightMode,
   weatherImages,
@@ -12,6 +13,27 @@ import {
 export default function LocationItem({ item }) {
   const { setSavedLocations, setActiveLocation } = useAppContext();
   const navigation = useNavigation();
+
+  const [location, setLocation] = useState('');
+
+  useEffect(() => {
+    fetch(
+      `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${
+        item.name + ', ' + item.country
+      }&aqi=no`
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setLocation(data);
+        console.log(item.name)
+      })
+      .catch(() => {});
+  }, []);
 
   const selectLocation = () => {
     setActiveLocation(`${item.name}, ${item.country}`);
@@ -25,36 +47,42 @@ export default function LocationItem({ item }) {
   };
 
   return (
-    <TouchableOpacity
-      onPress={selectLocation}
-      style={[
-        styles.container,
-        { backgroundColor: `rgba(${item.isDay ? dayMode : nightMode}, 1)` },
-      ]}
-    >
-      <View>
-        <Text
-          style={{
-            fontSize: 25,
-            padding: 5,
-            color: 'white',
-          }}
-        >
-          {item.name}
-        </Text>
-        <Text style={styles.text}>
-          {item.temp}°C, {item.condition}
-        </Text>
-      </View>
-      <Image
-        source={
-          item.isDay
-            ? weatherImages[item.condition]
-            : weatherImagesNight[item.condition]
-        }
-        style={styles.img}
-      />
-    </TouchableOpacity>
+    location && (
+      <TouchableOpacity
+        onPress={selectLocation}
+        style={[
+          styles.container,
+          {
+            backgroundColor: `rgba(${
+              location.current.is_day ? dayMode : nightMode
+            }, 1)`,
+          },
+        ]}
+      >
+        <View>
+          <Text
+            style={{
+              fontSize: 25,
+              padding: 5,
+              color: 'white',
+            }}
+          >
+            {location.location.name}
+          </Text>
+          <Text style={styles.text}>
+            {location.current.temp_c}°C, {location.current.condition.text}
+          </Text>
+        </View>
+        <Image
+          source={
+            location.current.is_day
+              ? weatherImages[location.current.condition.text]
+              : weatherImagesNight[location.current.condition.text]
+          }
+          style={styles.img}
+        />
+      </TouchableOpacity>
+    )
   );
 }
 
