@@ -30,7 +30,6 @@ export default function LocationItem({ item }) {
       })
       .then((data) => {
         setLocation(data);
-        console.log(item.name)
       })
       .catch(() => {});
   }, []);
@@ -67,7 +66,7 @@ export default function LocationItem({ item }) {
               color: 'white',
             }}
           >
-            {location.location.name}
+            {item.name}
           </Text>
           <Text style={styles.text}>
             {location.current.temp_c}°C, {location.current.condition.text}

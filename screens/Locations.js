@@ -22,8 +22,8 @@ export default function Locations() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    paddingTop: 70,
+    paddingHorizontal: 15,
+    paddingTop: 90,
     backgroundColor: `rgba(${dayMode}, 0)`,
   },
   title: {

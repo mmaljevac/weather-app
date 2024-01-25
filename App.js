@@ -10,6 +10,7 @@ import { StatusBar } from 'react-native';
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+
   return (
     <ContextProvider>
       <NavigationContainer>
@@ -19,7 +20,10 @@ export default function App() {
           screenOptions={{
             tabBarActiveTintColor: '#e91e63',
             headerShown: false,
-            tabBarStyle: { backgroundColor: 'rgba(255, 255, 255, 0)' },
+            tabBarStyle: { 
+              backgroundColor: '#202C33',
+              borderTopWidth: 0,
+            },
           }}
         >
           <Tab.Screen

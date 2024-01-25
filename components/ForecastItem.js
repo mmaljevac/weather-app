@@ -1,10 +1,13 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { weatherImages, weatherImagesNight } from '../constants/constants';
+import { useAppContext } from '../contexts/AppContext';
 
 export default function ForecastItem({ item }) {
+  const { isDay } = useAppContext();
+
   return (
-    <View style={styles.forecastItem}>
+    <View style={[styles.forecastItem, {backgroundColor: isDay ? 'white' : 'black'}]}>
       <Text style={styles.text}>{item.time.substring(11, 13)}</Text>
       {/* <Text>{item.condition.text}</Text> */}
       <Image
@@ -25,7 +28,6 @@ const styles = StyleSheet.create({
   forecastItem: {
     alignItems: 'center',
     textAlign: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 1)',
     borderRadius: 12,
     padding: 5,
     margin: 4,
