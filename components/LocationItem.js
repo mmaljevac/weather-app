@@ -44,17 +44,15 @@ export default function LocationItem({ item }) {
 
   const handleDelete = () => {
     const updatedLocations = savedLocations.filter(
-      (savedItem) => savedItem.name + savedItem.country !== item.name + item.country
+      (savedItem) =>
+        savedItem.name + savedItem.country !== item.name + item.country
     );
     setSavedLocations(updatedLocations);
   };
 
   const rightSwipe = () => {
     return (
-      <TouchableOpacity
-        style={styles.deleteBox}
-        onPress={handleDelete}
-      >
+      <TouchableOpacity style={styles.deleteBox} onPress={handleDelete}>
         <Text style={{ color: 'red', fontWeight: 'bold' }}>Delete</Text>
       </TouchableOpacity>
     );
@@ -92,8 +90,10 @@ export default function LocationItem({ item }) {
             <Image
               source={
                 location.current.is_day
-                  ? weatherImages[location.current.condition.text]
-                  : weatherImagesNight[location.current.condition.text]
+                  ? weatherImages[location.current.condition.text.toLowerCase()]
+                  : weatherImagesNight[
+                      location.current.condition.text.toLowerCase()
+                    ]
               }
               style={styles.img}
             />

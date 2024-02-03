@@ -122,9 +122,11 @@ export default function Home() {
               <Image
                 source={
                   currentWeatherData.current.is_day
-                    ? weatherImages[currentWeatherData.current.condition.text]
+                    ? weatherImages[
+                        currentWeatherData.current.condition.text.toLowerCase()
+                      ]
                     : weatherImagesNight[
-                        currentWeatherData.current.condition.text
+                        currentWeatherData.current.condition.text.toLowerCase()
                       ]
                 }
                 style={styles.imgCurrent}

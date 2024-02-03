@@ -3,17 +3,21 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { weatherImages, weatherImagesNight } from '../constants/constants';
 
 export default function ForecastItem({ item, isDay }) {
-
   return (
-    <View style={[styles.forecastItem, {backgroundColor: isDay ? 'white' : 'black'}]}>
+    <View
+      style={[
+        styles.forecastItem,
+        { backgroundColor: isDay ? 'white' : 'black' },
+      ]}
+    >
       <Text style={styles.text}>{item.time.substring(11, 13)}</Text>
       {/* <Text style={styles.text}>{item.is_day}</Text>
       <Text style={styles.text}>{item.condition.text}</Text> */}
       <Image
         source={
           item.is_day
-            ? weatherImages[item.condition.text]
-            : weatherImagesNight[item.condition.text]
+            ? weatherImages[item.condition.text.toLowerCase()]
+            : weatherImagesNight[item.condition.text.toLowerCase()]
         }
         style={styles.imgForecast}
       />
