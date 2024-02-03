@@ -1,15 +1,14 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { weatherImages, weatherImagesNight } from '../constants/constants';
-import { useAppContext } from '../contexts/AppContext';
 
-export default function ForecastItem({ item }) {
-  const { isDay } = useAppContext();
+export default function ForecastItem({ item, isDay }) {
 
   return (
     <View style={[styles.forecastItem, {backgroundColor: isDay ? 'white' : 'black'}]}>
       <Text style={styles.text}>{item.time.substring(11, 13)}</Text>
-      {/* <Text>{item.condition.text}</Text> */}
+      <Text style={styles.text}>{item.is_day}</Text>
+      <Text style={styles.text}>{item.condition.text}</Text>
       <Image
         source={
           item.is_day
@@ -19,7 +18,6 @@ export default function ForecastItem({ item }) {
         style={styles.imgForecast}
       />
       <Text style={styles.text}>{item.temp_c}°C</Text>
-      {/* <Text>{item.is_day}</Text> */}
     </View>
   );
 }

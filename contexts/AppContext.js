@@ -5,7 +5,6 @@ const AppContext = createContext();
 export const ContextProvider = ({ children }) => {
   const [savedLocations, setSavedLocations] = useState([]);
   const [activeLocation, setActiveLocation] = useState('Zagreb');
-  const [isDay, setIsDay] = useState(true);
 
   return (
     <AppContext.Provider
@@ -14,8 +13,6 @@ export const ContextProvider = ({ children }) => {
         setSavedLocations: setSavedLocations,
         activeLocation: activeLocation,
         setActiveLocation: setActiveLocation,
-        isDay: isDay,
-        setIsDay: setIsDay,
       }}
     >
       {children}

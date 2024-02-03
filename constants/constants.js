@@ -3,60 +3,73 @@ export const apiKey = '9b6b424f000143109c4120743231105';
 export const dayMode = '92, 179, 255';
 export const nightMode = '13, 38, 59';
 
+// forecast
+const sunny = require('../assets/images/sunny.png');
+const partlycloudy = require('../assets/images/partlycloudy.png');
+const cloudy = require('../assets/images/cloudy.png');
+const rain = require('../assets/images/rain.png');
+const heavyrain = require('../assets/images/heavyrain.png');
+const snow = require('../assets/images/snow.png');
+const fog = require('../assets/images/fog.png');
+
+// night mode
+const clear_night = require('../assets/images/clear_night.png');
+const partlycloudy_night = require('../assets/images/partlycloudy_night.png');
+
 export const weatherImages = {
-  'Sunny': require('../assets/images/sunny.png'),
-  'Clear': require('../assets/images/sunny.png'),
-  'Partly cloudy': require('../assets/images/partlycloudy.png'),
-  'Overcast': require('../assets/images/cloudy.png'),
-  'Cloudy': require('../assets/images/cloudy.png'),
-  'Moderate rain': require('../assets/images/rain.png'),
-  'Patchy rain possible': require('../assets/images/rain.png'),
-  'Light rain': require('../assets/images/rain.png'),
-  'Light rain shower': require('../assets/images/rain.png'),
-  'Moderate rain at times': require('../assets/images/rain.png'),
-  'Light drizzle': require('../assets/images/rain.png'),
-  'Heavy rain': require('../assets/images/heavyrain.png'),
-  'Heavy rain at times': require('../assets/images/heavyrain.png'),
-  'Moderate or heavy rain shower': require('../assets/images/heavyrain.png'),
-  'Moderate or heavy rain with thunder': require('../assets/images/heavyrain.png'),
-  'Light freezing rain': require('../assets/images/snow.png'),
-  'Moderate or heavy freezing rain': require('../assets/images/snow.png'),
-  'Light sleet': require('../assets/images/snow.png'),
-  'Light snow': require('../assets/images/snow.png'),
-  'Moderate snow': require('../assets/images/snow.png'),
-  'Heavy snow': require('../assets/images/snow.png'),
-  'Patchy light snow': require('../assets/images/snow.png'),
-  'Mist': require('../assets/images/fog.png'),
-  'Fog': require('../assets/images/fog.png'),
-  'Freezing fog': require('../assets/images/fog.png'),
-  'other': require('../assets/images/fog.png')
+  'Sunny': sunny,
+  'Clear': sunny,
+  'Partly cloudy': partlycloudy,
+  'Overcast': cloudy,
+  'Cloudy': cloudy,
+  'Moderate rain': rain,
+  'Patchy rain possible': rain,
+  'Light rain': rain,
+  'Light rain shower': rain,
+  'Moderate rain at times': rain,
+  'Light drizzle': rain,
+  'Heavy rain': heavyrain,
+  'Heavy rain at times': heavyrain,
+  'Moderate or heavy rain shower': heavyrain,
+  'Moderate or heavy rain with thunder': heavyrain,
+  'Light freezing rain': snow,
+  'Moderate or heavy freezing rain': snow,
+  'Light sleet': snow,
+  'Light snow': snow,
+  'Moderate snow': snow,
+  'Heavy snow': snow,
+  'Patchy light snow': snow,
+  'Mist': fog,
+  'Fog': fog,
+  'Freezing fog': fog,
+  'other': fog
 }
 
 export const weatherImagesNight = {
-  'Sunny': require('../assets/images/clear_night.png'),
-  'Clear': require('../assets/images/clear_night.png'),
-  'Partly cloudy': require('../assets/images/partlycloudy_night.png'),
-  'Overcast': require('../assets/images/cloudy.png'),
-  'Cloudy': require('../assets/images/cloudy.png'),
-  'Moderate rain': require('../assets/images/rain.png'),
-  'Patchy rain possible': require('../assets/images/rain.png'),
-  'Light rain': require('../assets/images/rain.png'),
-  'Light rain shower': require('../assets/images/rain.png'),
-  'Moderate rain at times': require('../assets/images/rain.png'),
-  'Light drizzle': require('../assets/images/rain.png'),
-  'Heavy rain': require('../assets/images/heavyrain.png'),
-  'Heavy rain at times': require('../assets/images/heavyrain.png'),
-  'Moderate or heavy rain shower': require('../assets/images/heavyrain.png'),
-  'Moderate or heavy rain with thunder': require('../assets/images/heavyrain.png'),
-  'Light freezing rain': require('../assets/images/snow.png'),
-  'Moderate or heavy freezing rain': require('../assets/images/snow.png'),
-  'Light sleet': require('../assets/images/snow.png'),
-  'Light snow': require('../assets/images/snow.png'),
-  'Moderate snow': require('../assets/images/snow.png'),
-  'Heavy snow': require('../assets/images/snow.png'),
-  'Patchy light snow': require('../assets/images/snow.png'),
-  'Mist': require('../assets/images/fog.png'),
-  'Fog': require('../assets/images/fog.png'),
-  'Freezing fog': require('../assets/images/fog.png'),
-  'other': require('../assets/images/fog.png')
+  'Sunny': clear_night,
+  'Clear': clear_night,
+  'Partly cloudy': partlycloudy_night,
+  'Overcast': cloudy,
+  'Cloudy': cloudy,
+  'Moderate rain': rain,
+  'Patchy rain possible': rain,
+  'Light rain': rain,
+  'Light rain shower': rain,
+  'Moderate rain at times': rain,
+  'Light drizzle': rain,
+  'Heavy rain': heavyrain,
+  'Heavy rain at times': heavyrain,
+  'Moderate or heavy rain shower': heavyrain,
+  'Moderate or heavy rain with thunder': heavyrain,
+  'Light freezing rain': snow,
+  'Moderate or heavy freezing rain': snow,
+  'Light sleet': snow,
+  'Light snow': snow,
+  'Moderate snow': snow,
+  'Heavy snow': snow,
+  'Patchy light snow': snow,
+  'Mist': fog,
+  'Fog': fog,
+  'Freezing fog': fog,
+  'other': fog
 }

@@ -14,8 +14,6 @@ import {
 import ForecastItem from '../components/ForecastItem';
 import {
   apiKey,
-  dayMode,
-  nightMode,
   weatherImages,
   weatherImagesNight,
 } from '../constants/constants';
@@ -27,9 +25,10 @@ export default function Home() {
   const [search, setSearch] = useState('Zagreb');
   const [currentWeatherData, setCurrentWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState(null);
-  const [time, setTime] = useState(require(`../assets/images/day.jpg`));
-  const { savedLocations, setSavedLocations, activeLocation, isDay, setIsDay } =
-    useAppContext();
+  const [background, setBackground] = useState(
+    require(`../assets/images/day.jpg`)
+  );
+  const { savedLocations, setSavedLocations, activeLocation } = useAppContext();
 
   useEffect(() => {
     handleSearch(activeLocation);
@@ -48,9 +47,9 @@ export default function Home() {
       .then((data) => {
         setCurrentWeatherData(data);
         if (data.current.is_day) {
-          setTime(require('../assets/images/day.jpg'))
+          setBackground(require('../assets/images/day.jpg'));
         } else {
-          setTime(require('../assets/images/night.jpg'))
+          setBackground(require('../assets/images/night.jpg'));
         }
       })
       .catch(() => {
@@ -68,7 +67,6 @@ export default function Home() {
       })
       .then((data) => {
         setForecastData(data);
-        setIsDay(data.current.is_day);
       })
       .catch(() => {});
   };
@@ -96,14 +94,11 @@ export default function Home() {
   };
 
   return (
-    <ImageBackground
-      source={time}
-      style={{ flex: 1 }}
-    >
+    <ImageBackground source={background} style={{ flex: 1 }}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         // style={{
-        //   backgroundColor: isDay ? `rgb(${dayMode})` : `rgb(${nightMode})`,
+        //   backgroundColor: currentWeatherData.current.is_day ? `rgb(${dayMode})` : `rgb(${nightMode})`,
         // }}
       >
         <View style={styles.container}>
@@ -179,16 +174,29 @@ export default function Home() {
                 <View style={{ flexDirection: 'row' }}>
                   {forecastData.forecast.forecastday[0].hour.map(
                     (item, index) => (
-                      <ForecastItem key={index} item={item} />
+                      <ForecastItem
+                        key={index}
+                        item={item}
+                        isDay={currentWeatherData.current.is_day}
+                      />
                     )
                   )}
                 </View>
               </ScrollView>
+              <View
+                style={[
+                  styles.button,
+                  {
+                    backgroundColor: currentWeatherData.current.is_day
+                      ? 'white'
+                      : 'black',
+                  },
+                ]}
+              >
+                <Button title="Save location📍" onPress={handleSave} />
+              </View>
             </>
           )}
-          <View style={[styles.button, {backgroundColor: isDay ? 'white' : 'black'}]}>
-            <Button title="Save location📍" onPress={handleSave} />
-          </View>
         </View>
       </ScrollView>
     </ImageBackground>
