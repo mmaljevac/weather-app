@@ -73,7 +73,7 @@ export default function LocationItem({ item }) {
               },
             ]}
           >
-            <View>
+            <View style={{maxWidth: 280}}>
               <Text
                 style={{
                   fontSize: 25,
