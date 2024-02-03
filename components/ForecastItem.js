@@ -7,8 +7,8 @@ export default function ForecastItem({ item, isDay }) {
   return (
     <View style={[styles.forecastItem, {backgroundColor: isDay ? 'white' : 'black'}]}>
       <Text style={styles.text}>{item.time.substring(11, 13)}</Text>
-      <Text style={styles.text}>{item.is_day}</Text>
-      <Text style={styles.text}>{item.condition.text}</Text>
+      {/* <Text style={styles.text}>{item.is_day}</Text>
+      <Text style={styles.text}>{item.condition.text}</Text> */}
       <Image
         source={
           item.is_day
