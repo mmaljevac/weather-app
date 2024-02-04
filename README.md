@@ -1,5 +1,5 @@
 # Weather app
-Project for college
+Video demonstration: https://www.youtube.com/watch?v=sbXadcf45fk
 
 <img src="https://github.com/mmaljevac/weather-app/assets/72459736/076696f8-8705-4178-8fa5-290681ec3127" width="350" title="screenshot1">
 <img src="https://github.com/mmaljevac/weather-app/assets/72459736/b5e5ea47-0fcb-4e83-acd7-d7198c70618c" width="350" title="screenshot2">
