@@ -73,7 +73,7 @@ export default function LocationItem({ item }) {
               },
             ]}
           >
-            <View style={{maxWidth: 280}}>
+            <View style={{ maxWidth: 280 }}>
               <Text
                 style={{
                   fontSize: 25,
@@ -90,9 +90,15 @@ export default function LocationItem({ item }) {
             <Image
               source={
                 location.current.is_day
-                  ? weatherImages[location.current.condition.text.toLowerCase()]
+                  ? weatherImages[
+                      location.current.condition.text
+                        .toLowerCase()
+                        .replace(/\s/g, '')
+                    ]
                   : weatherImagesNight[
-                      location.current.condition.text.toLowerCase()
+                      location.current.condition.text
+                        .toLowerCase()
+                        .replace(/\s/g, '')
                     ]
               }
               style={styles.img}

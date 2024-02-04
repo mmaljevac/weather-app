@@ -53,7 +53,7 @@ export default function Home() {
         }
       })
       .catch(() => {
-        Alert.alert('Unknown city!');
+        Alert.alert('Unknown location!');
       });
 
     fetch(
@@ -123,10 +123,14 @@ export default function Home() {
                 source={
                   currentWeatherData.current.is_day
                     ? weatherImages[
-                        currentWeatherData.current.condition.text.toLowerCase()
+                        currentWeatherData.current.condition.text
+                          .toLowerCase()
+                          .replace(/\s/g, '')
                       ]
                     : weatherImagesNight[
-                        currentWeatherData.current.condition.text.toLowerCase()
+                        currentWeatherData.current.condition.text
+                          .toLowerCase()
+                          .replace(/\s/g, '')
                       ]
                 }
                 style={styles.imgCurrent}

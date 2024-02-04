@@ -16,8 +16,12 @@ export default function ForecastItem({ item, isDay }) {
       <Image
         source={
           item.is_day
-            ? weatherImages[item.condition.text.toLowerCase()]
-            : weatherImagesNight[item.condition.text.toLowerCase()]
+            ? weatherImages[
+                item.condition.text.toLowerCase().replace(/\s/g, '')
+              ]
+            : weatherImagesNight[
+                item.condition.text.toLowerCase().replace(/\s/g, '')
+              ]
         }
         style={styles.imgForecast}
       />
