@@ -1,4 +1,4 @@
-export const apiKey = '9b6b424f000143109c4120743231105';
+export const apiKey = '196b32705ebf4ecca19151828241702';
 
 export const dayMode = '92, 179, 255';
 export const nightMode = '13, 38, 59';
